@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://b78ci118g1oji"]
+
+[ext_resource type="PackedScene" uid="uid://dclg58wrm0ao" path="res://Player.tscn" id="1_x6th1"]
+[ext_resource type="PackedScene" uid="uid://dbnanqpvr1huc" path="res://Enemy.tscn" id="2_vllgx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ew8gp"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4ngvc"]
+sky_material = SubResource("ProceduralSkyMaterial_ew8gp")
+
+[sub_resource type="Environment" id="Environment_g8451"]
+background_mode = 2
+sky = SubResource("Sky_4ngvc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5isj7"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1ginr"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_g8451")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_5isj7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1ginr")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_x6th1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4.3936)
+
+[node name="Enemy" parent="." instance=ExtResource("2_vllgx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.92108, 0, -6.33765)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_vllgx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.18367, -4.76837e-07, -6.62126)

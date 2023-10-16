@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbnanqpvr1huc"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_bqg1q"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0tyu7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qil6x"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nwvgw"]
+radius = 5.5331
+
+[node name="Enemy" type="Node3D"]
+script = ExtResource("1_bqg1q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_0tyu7")
+surface_material_override/0 = SubResource("StandardMaterial3D_qil6x")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_nwvgw")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

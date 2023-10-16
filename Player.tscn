@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dclg58wrm0ao"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_vts7n"]
+[ext_resource type="PackedScene" uid="uid://bsxketjbjynt0" path="res://fullscreen_ui.tscn" id="2_2k157"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pg8l6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vfaaf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lw160"]
+albedo_color = Color(0, 1, 1, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["Player"]]
+script = ExtResource("1_vts7n")
+
+[node name="Fullscreen_UI" parent="." instance=ExtResource("2_2k157")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_pg8l6")
+
+[node name="Head_Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51348, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head_Pivot"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_vfaaf")
+surface_material_override/0 = SubResource("StandardMaterial3D_lw160")
+
+[node name="Damage_Indicator_LookAt" type="Node3D" parent="." groups=["Player"]]
